@@ -58,4 +58,5 @@ class UsersTest {
         boolean exist = repository.existsById(1L);
         System.out.println("1번 레코드 존재 확인 : " + exist);
     }
+
 }
