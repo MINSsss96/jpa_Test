@@ -1,6 +1,7 @@
 package com.my.jpaTest.repository;
 
 import com.my.jpaTest.Dto.Gender;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,5 +75,14 @@ class UsersRepositoryTest {
                 .forEach(x-> System.out.println(x));
     }
 
+    @Test
+    @DisplayName("여러가지 좋아하는 색상 검색하기")
+    void findByLikeColorIn(){
+        // 검색하고자 하는 색상의 리스트 만들기
+
+//        List<String> colors = new ArrayList<>(Lists.newArrayList("Red","Pink"));
+        usersRepository.findByLikeColorIn(Lists.newArrayList("Red","Pink"))
+                .forEach(x-> System.out.println(x));
+    }
 
 }
