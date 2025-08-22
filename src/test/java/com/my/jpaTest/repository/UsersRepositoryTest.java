@@ -1,11 +1,13 @@
 package com.my.jpaTest.repository;
 
 import com.my.jpaTest.Dto.Gender;
+import com.my.jpaTest.entity.Users;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
@@ -84,5 +86,73 @@ class UsersRepositoryTest {
         usersRepository.findByLikeColorIn(Lists.newArrayList("Red","Pink"))
                 .forEach(x-> System.out.println(x));
     }
+
+    @Test
+    @DisplayName("아이디가 91이상인 자료 찾기")
+    void findByIdGreaterThanEqual() {
+
+        usersRepository.findByIdGreaterThanEqual(91L)
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByNameStartingWith")
+    void findByNameStartingWith() {
+        usersRepository.findByNameStartingWith("D")
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByNameEndingWith")
+    void findByNameEndingWith() {
+      usersRepository.findByNameEndingWith("S")
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByEmailContains")
+    void findByEmailContains() {
+        usersRepository.findByEmailContains("org")
+                .forEach(x-> System.out.println(x));
+    }
+
+
+    @Test
+    @DisplayName("findByEmailLike")
+    void findByEmailLike() {
+        usersRepository.findByEmailLike("%org%")
+                .forEach(x-> System.out.println(x));
+
+    }
+
+    @Test
+    @DisplayName("findByIdBetweenOrderByNameDesc")
+    void findByIdBetweenOrderByNameDesc() {
+        usersRepository.findByIdBetweenOrderByNameDesc(1L, 10L)
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findTop10ByLikeColorOrderByGenderAscByCreatedAtDesc")
+    void findTop10ByLikeColorOrderByGenderAscCreatedAtDesc() {
+        usersRepository.findTop10ByLikeColorOrderByGenderAscCreatedAtDesc("Orange")
+                .forEach(x-> System.out.println(x));
+    }
+
+    @Test
+    @DisplayName("findByLikeColor")
+    void findByLikeColor() {
+        usersRepository.findByLikeColor("Orange",
+                        Sort.by(Sort.Order.asc("gender"),
+                                Sort.Order.desc("createdAt")))
+                .forEach(x-> System.out.println(x));
+    }
+
+
+
+
+
+
+
 
 }
